@@ -16,8 +16,8 @@ fun discoverSchemas(avroDir: File): List<AvroSchemaInfo> {
         .map { file ->
             val domain = file.parentFile.name
             val group =
-                if (domain == "envelope") {
-                    "servista.envelope"
+                if (domain == "envelope" || domain == "dlq") {
+                    "servista.$domain"
                 } else {
                     "servista.$domain.events"
                 }

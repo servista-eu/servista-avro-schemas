@@ -1,0 +1,23 @@
+{
+  "namespace": "eu.servista.schemas.avro.dlq",
+  "type": "record",
+  "name": "DeadLetterEnvelope",
+  "doc": "Wraps a failed message with error metadata for DLQ routing. Registered in Apicurio with FULL compatibility.",
+  "fields": [
+    {"name": "dlq_event_id",      "type": "long",                        "doc": "Snowflake ID for this DLQ entry"},
+    {"name": "original_topic",    "type": "string",                      "doc": "Source topic the message was consumed from"},
+    {"name": "original_partition", "type": "int",                        "doc": "Partition number in source topic"},
+    {"name": "original_offset",   "type": "long",                        "doc": "Offset in source topic partition"},
+    {"name": "original_key",      "type": ["null", "bytes"],             "default": null, "doc": "Original message key bytes"},
+    {"name": "original_value",    "type": "bytes",                       "doc": "Original message value bytes (full EventEnvelope)"},
+    {"name": "error_type",        "type": "string",                      "doc": "Exception class name or error category"},
+    {"name": "error_message",     "type": "string",                      "doc": "Human-readable error description"},
+    {"name": "consumer_group",    "type": "string",                      "doc": "Consumer group that failed to process"},
+    {"name": "retry_count",       "type": "int",                         "doc": "Number of processing attempts before DLQ routing"},
+    {"name": "max_retries",       "type": "int",                         "doc": "Configured max retry limit"},
+    {"name": "status",            "type": {"type": "enum", "name": "DlqStatus", "symbols": ["PENDING", "PERMANENTLY_FAILED"]}, "doc": "Whether message is eligible for reprocessing"},
+    {"name": "correlation_id",    "type": ["null", "string"],            "default": null, "doc": "Correlation ID from original EventEnvelope if extractable"},
+    {"name": "organization_id",   "type": ["null", "long"],              "default": null, "doc": "Organization ID from original EventEnvelope if extractable"},
+    {"name": "timestamp",         "type": "long",                        "doc": "Unix epoch millis when DLQ entry was created"}
+  ]
+}

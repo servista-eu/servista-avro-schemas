@@ -18,7 +18,8 @@ class SchemaDiscoveryTest {
 
     /** Maps a domain directory name to its Apicurio group ID (same logic as buildSrc). */
     private fun groupForDomain(domain: String): String =
-        if (domain == "envelope") "servista.envelope" else "servista.$domain.events"
+        if (domain == "envelope" || domain == "dlq") "servista.$domain"
+        else "servista.$domain.events"
 
     @Test
     fun `discovers all schema files`() {
@@ -29,9 +30,9 @@ class SchemaDiscoveryTest {
                 .map { it.nameWithoutExtension }
                 .toList()
 
-        schemas shouldHaveAtLeastSize 3
+        schemas shouldHaveAtLeastSize 4
         schemas shouldContainExactlyInAnyOrder
-            listOf("EventEnvelope", "AccountCreated", "OrgCreated")
+            listOf("EventEnvelope", "AccountCreated", "OrgCreated", "DeadLetterEnvelope")
     }
 
     @Test
@@ -39,6 +40,13 @@ class SchemaDiscoveryTest {
         val file = File("src/main/avro/envelope/EventEnvelope.avsc")
         val domain = file.parentFile.name
         groupForDomain(domain) shouldBe "servista.envelope"
+    }
+
+    @Test
+    fun `maps dlq directory to servista_dlq group`() {
+        val file = File("src/main/avro/dlq/DeadLetterEnvelope.avsc")
+        val domain = file.parentFile.name
+        groupForDomain(domain) shouldBe "servista.dlq"
     }
 
     @Test

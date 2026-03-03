@@ -4,23 +4,23 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Not started
 status: completed
-stopped_at: Completed 01-02-PLAN.md (Phase 1 complete)
-last_updated: "2026-03-03T17:08:30.020Z"
+stopped_at: Completed 02-01-PLAN.md (Phase 2 complete)
+last_updated: "2026-03-03T18:50:15Z"
 progress:
-  total_phases: 1
-  completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_phases: 2
+  completed_phases: 2
+  total_plans: 3
+  completed_plans: 3
 ---
 
 # State: Servista Avro Schemas
 
 ## Current Phase
-Phase 1: Avro Event Infrastructure (governance Phase 5)
+Phase 2: DLQ Envelope Schema (governance Phase 6)
 
 ## Current Position
 - **Current Plan:** Not started
-- **Status:** Milestone complete
+- **Status:** Phase 2 complete
 
 ## Status
 COMPLETE
@@ -57,18 +57,26 @@ COMPLETE
 - **Rationale**: EventEnvelope.avsc was the only schema in servista-commons; single source of truth in servista-avro-schemas
 - **Date**: 2026-03-03
 
+### DLQ-01: DLQ Apicurio group naming
+- **Decision**: dlq/ directory maps to servista.dlq Apicurio group (same pattern as envelope/ -> servista.envelope)
+- **Rationale**: Infrastructure schemas (non-domain) use servista.{dir} group without .events suffix
+- **Date**: 2026-03-03
+
 ## Performance Metrics
 
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 01    | 01   | 9min     | 2     | 23    |
 | 01    | 02   | 9min     | 2     | 14    |
+| 02    | 01   | 3min     | 1     | 3     |
 
 ## Context
 - Plans copied from governance Phase 5 (avro-event-infrastructure)
 - Governance Phase 5 -> Component Phase 1
+- Plans copied from governance Phase 6 (kafka-topic-provisioning, DLQ schema portion)
+- Governance Phase 6 -> Component Phase 2
 - Depends on: Gradle Platform (governance Phase 3, complete)
 
 ## Last Session
-- **Timestamp:** 2026-03-03T17:02:10Z
-- **Stopped At:** Completed 01-02-PLAN.md (Phase 1 complete)
+- **Timestamp:** 2026-03-03T18:50:15Z
+- **Stopped At:** Completed 02-01-PLAN.md (Phase 2 complete)

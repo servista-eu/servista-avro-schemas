@@ -42,11 +42,11 @@ Plans:
   4. Namespace eu.servista.schemas.avro.dlq matches dlq/ directory (enforced by SchemaNamespaceConsistencyTest)
   5. `./gradlew build` passes end-to-end (codegen + compilation + tests)
 Plans:
-- [ ] 02-01-PLAN.md -- Create DeadLetterEnvelope Avro schema
+- [x] 02-01-PLAN.md -- Create DeadLetterEnvelope Avro schema
 
 ## Progress
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1     | Complete | 2/2  | 100%     |
-| 2     | Planned  | 0/1  | 0%       |
+| 2     | Complete | 1/1  | 100%     |

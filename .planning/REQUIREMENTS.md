@@ -13,7 +13,7 @@ Requirements extracted from governance repo for this component.
 
 ### DLQ Envelope Schema
 
-- [ ] **FOUND-05**: Kafka topic provisioning configuration for all 18 topics (9 domain + 9 DLQ) — DLQ envelope Avro schema (DeadLetterEnvelope) wrapping failed messages with error metadata for centralized DLQ routing
+- [x] **FOUND-05**: Kafka topic provisioning configuration for all 18 topics (9 domain + 9 DLQ) — DLQ envelope Avro schema (DeadLetterEnvelope) wrapping failed messages with error metadata for centralized DLQ routing
 
 ### Governance Mapping
 

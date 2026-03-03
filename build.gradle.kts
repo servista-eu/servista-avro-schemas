@@ -1,3 +1,5 @@
+import eu.servista.gradle.RegisterSchemasTask
+
 plugins {
     id("servista.library")
     id("servista.avro")
@@ -59,6 +61,13 @@ sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated-avro-java"))
 tasks.named("compileKotlin") { dependsOn(generateAvro) }
 
 tasks.named("compileJava") { dependsOn(generateAvro) }
+
+tasks.register<RegisterSchemasTask>("registerSchemas") {
+    group = "publishing"
+    description = "Register Avro schemas in Apicurio Registry"
+    registryUrl.set(findProperty("registryUrl")?.toString() ?: "")
+    schemaDir.set(file("src/main/avro"))
+}
 
 publishing {
     publications {

@@ -9,7 +9,7 @@ Requirements extracted from governance repo for this component.
 
 ### Avro Event Infrastructure
 
-- [ ] **FOUND-04**: Avro event infrastructure — centralized schema repository with EventEnvelope and per-domain payload schemas, Avro codegen, Maven publishing, Apicurio Registry registration with FULL/BACKWARD compatibility rules
+- [x] **FOUND-04**: Avro event infrastructure — centralized schema repository with EventEnvelope and per-domain payload schemas, Avro codegen, Maven publishing, Apicurio Registry registration with FULL/BACKWARD compatibility rules
 
 ### Governance Mapping
 

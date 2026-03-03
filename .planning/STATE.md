@@ -5,10 +5,10 @@ Phase 1: Avro Event Infrastructure (governance Phase 5)
 
 ## Current Position
 - **Current Plan:** 2 of 2 in Phase 1
-- **Status:** IN PROGRESS -- Plan 01 complete, Plan 02 pending
+- **Status:** COMPLETE -- All plans in Phase 1 executed
 
 ## Status
-IN PROGRESS
+COMPLETE
 
 ## Decisions
 
@@ -32,11 +32,22 @@ IN PROGRESS
 - **Rationale**: Pre-existing issues in servista.testing plugin (TC 2.x coordinate changes, missing launcher for Gradle 9.x)
 - **Date**: 2026-03-03
 
+### AVRO-04: buildSrc serialization approach
+- **Decision**: Use kotlinx-serialization-json without compiler plugin in buildSrc
+- **Rationale**: Only JSON DSL functions (buildJsonObject, put) needed for Apicurio REST API calls; compiler plugin not required
+- **Date**: 2026-03-03
+
+### AVRO-05: lib-commons EventEnvelope migration
+- **Decision**: Remove avro-tools codegen entirely from servista-commons, consume EventEnvelope from servista-avro-schemas
+- **Rationale**: EventEnvelope.avsc was the only schema in servista-commons; single source of truth in servista-avro-schemas
+- **Date**: 2026-03-03
+
 ## Performance Metrics
 
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 01    | 01   | 9min     | 2     | 23    |
+| 01    | 02   | 9min     | 2     | 14    |
 
 ## Context
 - Plans copied from governance Phase 5 (avro-event-infrastructure)
@@ -44,5 +55,5 @@ IN PROGRESS
 - Depends on: Gradle Platform (governance Phase 3, complete)
 
 ## Last Session
-- **Timestamp:** 2026-03-03T16:48:52Z
-- **Stopped At:** Completed 01-01-PLAN.md
+- **Timestamp:** 2026-03-03T17:02:10Z
+- **Stopped At:** Completed 01-02-PLAN.md (Phase 1 complete)

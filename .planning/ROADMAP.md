@@ -28,10 +28,10 @@ This roadmap delivers the Servista centralized Avro schema repository (`servista
   9. lib-commons depends on servista-avro-schemas for EventEnvelope (or migration documented if Phase 4 not yet executed)
 Plans:
 - [x] 01-01-PLAN.md -- Project scaffold, build configuration, Avro schemas, namespace and compatibility tests
-- [ ] 01-02-PLAN.md -- RegisterSchemasTask for Apicurio, schema discovery, lib-commons EventEnvelope migration
+- [x] 01-02-PLAN.md -- RegisterSchemasTask for Apicurio, schema discovery, lib-commons EventEnvelope migration
 
 ## Progress
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
-| 1     | In Progress | 1/2  | 50%      |
+| 1     | Complete | 2/2  | 100%     |

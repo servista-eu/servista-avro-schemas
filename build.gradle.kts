@@ -2,45 +2,62 @@ plugins {
     id("servista.library")
     id("servista.avro")
     id("servista.testing")
+    alias(libs.plugins.kotlin.serialization)
     `maven-publish`
 }
 
-repositories {
-    mavenCentral()
-}
+repositories { mavenCentral() }
 
-val avroTools by configurations.creating {
-    exclude(group = "org.apache.avro", module = "trevni-avro")
-    exclude(group = "org.apache.avro", module = "trevni-core")
-}
+val avroTools by
+    configurations.creating {
+        exclude(group = "org.apache.avro", module = "trevni-avro")
+        exclude(group = "org.apache.avro", module = "trevni-core")
+    }
 
 dependencies {
     avroTools("org.apache.avro:avro-tools:1.12.1")
+    testImplementation(libs.kotlinx.serialization.json)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-val generateAvro by tasks.registering(JavaExec::class) {
-    group = "build"
-    description = "Generate Java classes from Avro schemas"
-    classpath = avroTools
-    mainClass.set("org.apache.avro.tool.Main")
+// Exclude testcontainers modules that don't exist at 2.x coordinates
+// (servista.testing declares postgresql/kafka modules that changed groupId in TC 2.x)
+configurations.testImplementation {
+    exclude(group = "org.testcontainers", module = "postgresql")
+    exclude(group = "org.testcontainers", module = "kafka")
+}
 
-    val avroDir = file("src/main/avro")
-    val outputDir = layout.buildDirectory.dir("generated-avro-java")
+val generateAvro by
+    tasks.registering(JavaExec::class) {
+        group = "build"
+        description = "Generate Java classes from Avro schemas"
+        classpath = avroTools
+        mainClass.set("org.apache.avro.tool.Main")
 
-    inputs.dir(avroDir)
-    outputs.dir(outputDir)
+        val avroDir = file("src/main/avro")
+        val outputDir = layout.buildDirectory.dir("generated-avro-java")
 
-    doFirst {
-        val schemaFiles = avroDir.walkTopDown()
-            .filter { it.extension == "avsc" }
-            .map { it.absolutePath }
-            .toList()
-        args = listOf("compile", "schema") + schemaFiles + listOf(outputDir.get().asFile.absolutePath)
+        inputs.dir(avroDir)
+        outputs.dir(outputDir)
+
+        doFirst {
+            val schemaFiles =
+                avroDir
+                    .walkTopDown()
+                    .filter { it.extension == "avsc" }
+                    .map { it.absolutePath }
+                    .toList()
+            args =
+                listOf("compile", "schema") +
+                    schemaFiles +
+                    listOf(outputDir.get().asFile.absolutePath)
+        }
     }
-}
 
 sourceSets["main"].java.srcDir(layout.buildDirectory.dir("generated-avro-java"))
+
 tasks.named("compileKotlin") { dependsOn(generateAvro) }
+
 tasks.named("compileJava") { dependsOn(generateAvro) }
 
 publishing {
@@ -56,8 +73,10 @@ publishing {
             name = "forgejo"
             url = uri("https://git.hestia-ng.eu/api/packages/servista/maven")
             credentials {
-                username = findProperty("forgejoUser")?.toString() ?: System.getenv("FORGEJO_USER") ?: ""
-                password = findProperty("forgejoToken")?.toString() ?: System.getenv("FORGEJO_TOKEN") ?: ""
+                username =
+                    findProperty("forgejoUser")?.toString() ?: System.getenv("FORGEJO_USER") ?: ""
+                password =
+                    findProperty("forgejoToken")?.toString() ?: System.getenv("FORGEJO_TOKEN") ?: ""
             }
         }
     }

@@ -9,6 +9,7 @@ This roadmap delivers the Servista centralized Avro schema repository (`servista
 | Servista-Avro-Schemas Phase | Governance Phase | Name |
 |-----------------------------|-----------------|------|
 | 1 | 5 | Avro Event Infrastructure |
+| 2 | 6 | DLQ Envelope Schema |
 
 ## Phases
 
@@ -30,8 +31,22 @@ Plans:
 - [x] 01-01-PLAN.md -- Project scaffold, build configuration, Avro schemas, namespace and compatibility tests
 - [x] 01-02-PLAN.md -- RegisterSchemasTask for Apicurio, schema discovery, lib-commons EventEnvelope migration
 
+### Phase 2: DLQ Envelope Schema
+**Goal**: DeadLetterEnvelope Avro schema exists in `src/main/avro/dlq/` with all error metadata fields and DlqStatus enum, generating a Java class consumed by servista-commons for centralized DLQ routing
+**Depends on**: Phase 1 (Avro Event Infrastructure, complete)
+**Requirements**: FOUND-05
+**Success Criteria** (what must be TRUE):
+  1. DeadLetterEnvelope.avsc generates a Java class at eu.servista.schemas.avro.dlq.DeadLetterEnvelope
+  2. All 15 fields present: dlq_event_id, original_topic, original_partition, original_offset, original_key, original_value, error_type, error_message, consumer_group, retry_count, max_retries, status, correlation_id, organization_id, timestamp
+  3. DlqStatus enum has PENDING and PERMANENTLY_FAILED symbols
+  4. Namespace eu.servista.schemas.avro.dlq matches dlq/ directory (enforced by SchemaNamespaceConsistencyTest)
+  5. `./gradlew build` passes end-to-end (codegen + compilation + tests)
+Plans:
+- [ ] 02-01-PLAN.md -- Create DeadLetterEnvelope Avro schema
+
 ## Progress
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1     | Complete | 2/2  | 100%     |
+| 2     | Planned  | 0/1  | 0%       |

@@ -11,8 +11,13 @@ Requirements extracted from governance repo for this component.
 
 - [x] **FOUND-04**: Avro event infrastructure — centralized schema repository with EventEnvelope and per-domain payload schemas, Avro codegen, Maven publishing, Apicurio Registry registration with FULL/BACKWARD compatibility rules
 
+### DLQ Envelope Schema
+
+- [ ] **FOUND-05**: Kafka topic provisioning configuration for all 18 topics (9 domain + 9 DLQ) — DLQ envelope Avro schema (DeadLetterEnvelope) wrapping failed messages with error metadata for centralized DLQ routing
+
 ### Governance Mapping
 
 | Local Req | Governance Req | Governance Phase |
 |-----------|---------------|-----------------|
 | FOUND-04 | FOUND-04 | 5 |
+| FOUND-05 | FOUND-05 | 6 |

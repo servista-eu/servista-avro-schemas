@@ -1,0 +1,13 @@
+{
+  "namespace": "eu.servista.schemas.avro.organizations",
+  "type": "record",
+  "name": "OrgCreated",
+  "doc": "Payload for organization creation events. Published to servista.organizations.events topic.",
+  "fields": [
+    {"name": "organization_id",  "type": "long",   "doc": "Snowflake ID of the created org"},
+    {"name": "name",             "type": "string", "doc": "Organization name"},
+    {"name": "vat_number",       "type": "string", "doc": "VAT number (unique identifier per ORG-02)"},
+    {"name": "status",           "type": "string", "doc": "Org lifecycle status (provisioning, active, etc.)"},
+    {"name": "created_at",       "type": "long",   "doc": "Unix epoch millis of creation"}
+  ]
+}

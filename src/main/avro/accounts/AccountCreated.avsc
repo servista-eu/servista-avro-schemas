@@ -1,0 +1,13 @@
+{
+  "namespace": "eu.servista.schemas.avro.accounts",
+  "type": "record",
+  "name": "AccountCreated",
+  "doc": "Payload for account creation events. Published to servista.accounts.events topic.",
+  "fields": [
+    {"name": "account_id",      "type": "long",   "doc": "Snowflake ID of the created account"},
+    {"name": "email",           "type": "string", "doc": "Account email address"},
+    {"name": "display_name",    "type": "string", "doc": "Account display name"},
+    {"name": "organization_id", "type": "long",   "doc": "Org the account belongs to"},
+    {"name": "created_at",      "type": "long",   "doc": "Unix epoch millis of creation"}
+  ]
+}

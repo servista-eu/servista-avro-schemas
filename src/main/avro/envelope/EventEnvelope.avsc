@@ -1,0 +1,17 @@
+{
+  "namespace": "eu.servista.schemas.avro.envelope",
+  "type": "record",
+  "name": "EventEnvelope",
+  "doc": "Platform event envelope. Registered in Apicurio with FULL compatibility. All domain events are wrapped in this envelope with the domain-specific payload as Avro-encoded bytes.",
+  "fields": [
+    {"name": "event_id",        "type": "long",             "doc": "Snowflake ID for this event"},
+    {"name": "event_type",      "type": "string",           "doc": "Dot-delimited event type (e.g., account.created)"},
+    {"name": "aggregate_id",    "type": "long",             "doc": "Snowflake ID of the aggregate root"},
+    {"name": "organization_id", "type": "long",             "doc": "Tenant org Snowflake ID"},
+    {"name": "account_id",      "type": ["null", "long"],   "default": null, "doc": "Actor account Snowflake ID (null for system events)"},
+    {"name": "timestamp",       "type": "long",             "doc": "Unix epoch millis when event was produced"},
+    {"name": "correlation_id",  "type": "string",           "doc": "Request correlation ID for distributed tracing"},
+    {"name": "causation_id",    "type": ["null", "long"],   "default": null, "doc": "Snowflake ID of the event that caused this one"},
+    {"name": "payload",         "type": "bytes",            "doc": "Domain-specific payload (Avro-encoded per event_type schema)"}
+  ]
+}

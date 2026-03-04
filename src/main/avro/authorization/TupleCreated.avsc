@@ -1,0 +1,15 @@
+{
+  "namespace": "eu.servista.schemas.avro.authorization",
+  "type": "record",
+  "name": "TupleCreated",
+  "doc": "Payload for authorization tuple creation events. Published to servista.authorization.events topic wrapped in EventEnvelope.",
+  "fields": [
+    {"name": "tuple_user", "type": "string", "doc": "Tuple user field (e.g., 'user:12345678')"},
+    {"name": "tuple_relation", "type": "string", "doc": "Tuple relation (e.g., 'viewer', 'assignee', 'member')"},
+    {"name": "tuple_object", "type": "string", "doc": "Tuple object field (e.g., 'resource:87654321')"},
+    {"name": "condition_name", "type": ["null", "string"], "default": null, "doc": "Condition name if this is a conditional tuple (e.g., 'time_bound_access', 'ip_allowed')"},
+    {"name": "condition_context", "type": ["null", "string"], "default": null, "doc": "JSON-serialized condition context parameters if conditional tuple"},
+    {"name": "reason", "type": {"type": "enum", "name": "TupleCreationReason", "symbols": ["ROLE_ASSIGNMENT", "DIRECT_GRANT", "MEMBERSHIP", "CROSS_ORG_GRANT", "GROUP_MEMBERSHIP", "TEAM_MEMBERSHIP", "ORG_ONBOARDING", "CAPABILITY_GRANT", "SCOPE_GRANT", "OTHER"]}, "doc": "Why the tuple was created"},
+    {"name": "model_version", "type": "string", "doc": "Semantic version of the authorization model at time of tuple creation (e.g., 'v1.0.0')"}
+  ]
+}

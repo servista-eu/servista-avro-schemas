@@ -1,0 +1,17 @@
+{
+  "namespace": "eu.servista.schemas.avro.authorization",
+  "type": "record",
+  "name": "ModelUpdated",
+  "doc": "Payload for authorization model update events. Published to servista.authorization.events topic wrapped in EventEnvelope. Critical for forensic replay.",
+  "fields": [
+    {"name": "previous_version", "type": ["null", "string"], "default": null, "doc": "Previous model version (null for initial deployment)"},
+    {"name": "new_version", "type": "string", "doc": "New model version (semantic version, e.g., 'v1.1.0')"},
+    {"name": "change_type", "type": {"type": "enum", "name": "ModelChangeType", "symbols": ["INITIAL_DEPLOYMENT", "NEW_TYPES", "NEW_RELATIONS", "NEW_CONDITIONS", "RELATION_RENAME", "RELATION_REMOVAL", "TYPE_REMOVAL", "BREAKING_CHANGE"]}, "doc": "Category of model change"},
+    {"name": "change_summary", "type": "string", "doc": "Human-readable summary of what changed"},
+    {"name": "types_added", "type": {"type": "array", "items": "string"}, "default": [], "doc": "List of new type names added"},
+    {"name": "types_removed", "type": {"type": "array", "items": "string"}, "default": [], "doc": "List of type names removed"},
+    {"name": "relations_added", "type": {"type": "array", "items": "string"}, "default": [], "doc": "List of new relations added (format: 'type.relation')"},
+    {"name": "relations_removed", "type": {"type": "array", "items": "string"}, "default": [], "doc": "List of relations removed (format: 'type.relation')"},
+    {"name": "is_breaking", "type": "boolean", "doc": "Whether this is a breaking change requiring tuple migration"}
+  ]
+}

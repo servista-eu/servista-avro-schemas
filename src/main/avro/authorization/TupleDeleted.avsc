@@ -1,0 +1,13 @@
+{
+  "namespace": "eu.servista.schemas.avro.authorization",
+  "type": "record",
+  "name": "TupleDeleted",
+  "doc": "Payload for authorization tuple deletion events. Published to servista.authorization.events topic wrapped in EventEnvelope.",
+  "fields": [
+    {"name": "tuple_user", "type": "string", "doc": "Tuple user field (e.g., 'user:12345678')"},
+    {"name": "tuple_relation", "type": "string", "doc": "Tuple relation (e.g., 'viewer', 'assignee', 'member')"},
+    {"name": "tuple_object", "type": "string", "doc": "Tuple object field (e.g., 'resource:87654321')"},
+    {"name": "reason", "type": {"type": "enum", "name": "TupleDeletionReason", "symbols": ["ROLE_UPDATE", "ROLE_DELETION", "MEMBERSHIP_REMOVAL", "RESOURCE_DELETION", "CROSS_ORG_REVOCATION", "GROUP_DELETION", "TEAM_DELETION", "ORG_OFFBOARDING", "GARBAGE_COLLECTION", "MANUAL", "OTHER"]}, "doc": "Why the tuple was deleted"},
+    {"name": "model_version", "type": "string", "doc": "Semantic version of the authorization model at time of tuple deletion"}
+  ]
+}

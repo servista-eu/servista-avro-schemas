@@ -10,6 +10,7 @@ This roadmap delivers the Servista centralized Avro schema repository (`servista
 |-----------------------------|-----------------|------|
 | 1 | 5 | Avro Event Infrastructure |
 | 2 | 6 | DLQ Envelope Schema |
+| 3 | 8 | Authorization Event Schemas |
 
 ## Phases
 
@@ -44,9 +45,21 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md -- Create DeadLetterEnvelope Avro schema
 
+### Phase 3: Authorization Event Schemas
+**Goal**: Authorization domain Avro event schemas exist for tuple lifecycle and model update events
+**Depends on**: Phase 1 (Avro Event Infrastructure, complete)
+**Requirements**: FOUND-07
+**Success Criteria** (what must be TRUE):
+  1. TupleCreated.avsc, TupleDeleted.avsc, ModelUpdated.avsc exist in src/main/avro/authorization/
+  2. All schemas use namespace eu.servista.schemas.avro.authorization
+  3. Schemas are valid Avro and follow Phase 1 envelope pattern conventions
+Plans:
+- [x] 03-01-PLAN.md -- Authorization domain Avro event schemas
+
 ## Progress
 
 | Phase | Status | Plans | Progress |
 |-------|--------|-------|----------|
 | 1     | Complete | 2/2  | 100%     |
 | 2     | Complete | 1/1  | 100%     |
+| 3     | Complete | 1/1  | 100%     |
